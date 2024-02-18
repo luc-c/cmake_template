@@ -21,12 +21,12 @@ pipeline {
                 stages {
                     stage('Build') {
                         steps {
-                            echo "Do Build for ${PLATFORM} - ${BROWSER} - ${CONFIG}"
+                            echo "Do Build for ${PLATFORM} - ${ARCH} - ${CONFIG}"
                         }
                     }
                     stage('Test') {
                         steps {
-                            echo "Do Test for ${PLATFORM} - ${BROWSER}  - ${CONFIG}"
+                            echo "Do Test for ${PLATFORM} - ${ARCH}  - ${CONFIG}"
                         }
                     }
                 }
