@@ -1,32 +1,43 @@
 pipeline {
     agent none
     stages {
-        stage('BuildAndTest') {
-            matrix {
-                agent any
-                axes {
-                    axis {
-                        name 'PLATFORM'
-                        values 'linux', 'windows', 'mac'
+	 parallel {
+                stage('Windows') {
+                    agent {
+                        label "windows"
                     }
-                    axis {
-                        name 'ARCH'
-                        values 'x86', 'x86_64', 'ARM'
+                    steps {
+                        bat "run-tests.bat"
                     }
-					axis {
-                        name 'CONFIG'
-                        values 'Release', 'Debug'
-                    }
-                }
-                stages {
-                    stage('Build') {
-                        steps {
-                            echo "Do Build for ${PLATFORM} - ${BROWSER} - ${CONFIG}"
+                    post {
+                        always {
+                            junit "**/TEST-*.xml"
                         }
                     }
-                    stage('Test') {
-                        steps {
-                            echo "Do Test for ${PLATFORM} - ${BROWSER}  - ${CONFIG}"
+                }
+				stage('Linux') {
+                    agent {
+                        label "linux"
+                    }
+                    steps {
+                        bat "run-tests.bat"
+                    }
+                    post {
+                        always {
+                            junit "**/TEST-*.xml"
+                        }
+                    }
+                }
+				stage('Linux') {
+                    agent {
+                        label "linux"
+                    }
+                    steps {
+                        bat "run-tests.bat"
+                    }
+                    post {
+                        always {
+                            junit "**/TEST-*.xml"
                         }
                     }
                 }
