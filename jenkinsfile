@@ -31,12 +31,6 @@ pipeline {
                     }
                 }
             }
-        }
-		stage('Report')
-		{
-			steps {
-				publishChecks()
-			}
-		}		
+        }	
     }
 }
